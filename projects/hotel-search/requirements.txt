@@ -1,0 +1,2 @@
+superlinked==17.2.2
+superlinked-server==0.7.2
