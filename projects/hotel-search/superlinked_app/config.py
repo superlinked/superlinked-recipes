@@ -10,10 +10,10 @@ class Settings(BaseSettings):
     text_embedder_name: str = "sentence-transformers/all-mpnet-base-v2"
     chunk_size: int = 1000
     path_categories: str = (
-        "https://storage.googleapis.com/superlinked-recipes/hotels-search/categories/categories.json"
+        "https://storage.googleapis.com/superlinked-recipes-data/hotels-search/categories/categories.json"
     )
     path_dataset: str = (
-        "https://storage.googleapis.com/superlinked-recipes/hotels-search/dataset/dataset.jsonl"
+        "https://storage.googleapis.com/superlinked-recipes-data/hotels-search/dataset/dataset.jsonl"
     )
     openai_model: str = "gpt-4o"
     openai_api_key: SecretStr

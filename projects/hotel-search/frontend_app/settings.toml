@@ -1,5 +1,5 @@
-path_categories = "https://storage.googleapis.com/superlinked-recipes/hotels-search/categories/categories.json"
-path_dataset = "https://storage.googleapis.com/superlinked-recipes/hotels-search/dataset/dataset.jsonl"
+path_categories = "https://storage.googleapis.com/superlinked-recipes-data/hotels-search/categories/categories.json"
+path_dataset = "https://storage.googleapis.com/superlinked-recipes-data/hotels-search/dataset/dataset.jsonl"
 
 log_level = "INFO"
 
