@@ -83,7 +83,7 @@ For more details on using Redis with Superlinked, refer to the [our docs](https:
 
 ### Superlinked server
 
-Use [`superlinked_app/.env-example`](../superlinked_app/.env-example) as a template, create `superlinked_app/.env` and set `OPENAI_API_KEY` required for Natural Query Interface.
+Use [`superlinked_app/.env-example`](./superlinked_app/.env-example) as a template, create `superlinked_app/.env` and set `OPENAI_API_KEY` required for Natural Query Interface.
 
 ```shell
 python3.11 -m venv .venv
