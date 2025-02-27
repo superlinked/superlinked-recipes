@@ -209,8 +209,13 @@ To use Qdrant instead of Redis, follow these steps:
 - **Local Option**:
   You can run Qdrant locally using Docker:
   ```bash
-  docker pull qdrant/qdrant
-  docker run -p 6333:6333 -p 6334:6334 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdrant
+  docker run -d \
+  --name qdrant-vdb-hotel-search \
+  -p 6333:6333 \
+  -p 6334:6334 \
+  -v $(pwd)/qdrant_storage:/qdrant/storage \
+  -e QDRANT__SERVICE__API_KEY="YOUR_QDRANT_API_KEY" \
+  qdrant/qdrant
   ```
     This will start Qdrant on [localhost:6333](http://localhost:6333) for the API endpoint and [localhost:6334](http://localhost:6334) for the web interface.
 

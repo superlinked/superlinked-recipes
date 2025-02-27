@@ -5,3 +5,5 @@ __pycache__
 *.egg-info/
 build/
 redis-data/
+qdrant_storage/
+logs/
