@@ -66,6 +66,8 @@ More details are provided below, in the **Tutorial** section.
 
 ### Redis VDB
 
+Note: If you want to use Qdrant instead of Redis, please refer to the section below "Qdrant Vector Databse".
+
 ```shell
 docker run -d \
   --name redis-vdb-hotel-search \
