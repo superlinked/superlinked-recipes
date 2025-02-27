@@ -17,7 +17,7 @@ class SuperlinkedClient:
         self.headers = {
             "Accept": "*/*",
             "Content-Type": "application/json",
-            "x-debug-mode": "true",
+            "x-include-metadata": "true",
         }
 
     def ingest(self, schema_name: str, data: dict[str, Any]):

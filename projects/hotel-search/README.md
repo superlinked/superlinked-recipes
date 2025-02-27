@@ -66,6 +66,8 @@ More details are provided below, in the **Tutorial** section.
 
 ### Redis VDB
 
+Note: If you want to use Qdrant instead of Redis, please refer to the section below "Qdrant Vector Databse".
+
 ```shell
 docker run -d \
   --name redis-vdb-hotel-search \
@@ -194,6 +196,40 @@ This file sets the following components:
   We also support [MongoDB and Qdrant](https://docs.superlinked.com/run-in-production/index-1).
 - data loader: our data is ingested from gcp bucket
 - REST API: our app will provide endpoints for ingestion (bulk and one-by-one) and for querying. More information is in [our docs](https://docs.superlinked.com/run-in-production/index/interacting-with-app-via-api).
+
+### Qdrant Vector Databse
+
+To use Qdrant instead of Redis, follow these steps:
+
+**1. Provision Qdrant Vector Database instance**
+
+- **Cloud Option**:
+  Visit [qdrant.tech](https://qdrant.tech/) to create and configure your own Cloud Qdrant instance. Sign up for an account, create a new cluster, and obtain your API key and endpoint URL.
+
+- **Local Option**:
+  You can run Qdrant locally using Docker:
+  ```bash
+  docker run -d \
+  --name qdrant-vdb-hotel-search \
+  -p 6333:6333 \
+  -v $(pwd)/qdrant_storage:/qdrant/storage \
+  -e QDRANT__SERVICE__API_KEY="YOUR_QDRANT_API_KEY" \
+  qdrant/qdrant
+  ```
+    This will start Qdrant on [localhost:6333](http://localhost:6333) for the API endpoint and [localhost:6333/dashboard](http://localhost:6333/dashboard) for the web interface.
+
+**2. Update [api.py](./superlinked_app/api.py)**
+
+The only thing you need to change is VDB definition:
+
+```python
+vector_database = sl.QdrantVectorDatabase(
+    url=YOUR_QDRANT_URL,
+    api_key=YOUR_QDRANT_API_KEY,
+)
+```
+
+Note: For security, we recommend storing `YOUR_QDRANT_URL` and `YOUR_QDRANT_API_KEY` variables in git-ignored `superlinked_app/.env` and reading them via [`config.py`](./superlinked_app/config.py).
 
 ## What's next
 

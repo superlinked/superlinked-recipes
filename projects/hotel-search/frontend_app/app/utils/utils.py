@@ -18,17 +18,14 @@ def get_kick_start_options() -> list[str]:
 def flatten_response(response: dict) -> list[dict]:
     result = []
 
-    for row in response["results"]:
-        obj = {}
+    for entry in response["entries"]:
 
-        for k, v in row["obj"].items():
-            obj[k] = v
-
-        row_flattened = {
-            "score": row["entity"]["score"],
-            **obj,
+        item = {
+            "id": entry["id"],
+            "score": entry["metadata"]["score"],
+            **entry["fields"],
         }
-        result.append(row_flattened)
+        result.append(item)
 
     return result
 
@@ -40,7 +37,8 @@ def clean_knn_params(knn_params: dict) -> dict:
         "limit",
         "radius",
         "natural_query",
-        "system_prompt_param",
+        "system_prompt_param__",
+        "select_param__",
     ]
     for key in keys_remove:
         knn_params_clean.pop(key, None)
