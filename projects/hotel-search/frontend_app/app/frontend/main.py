@@ -153,7 +153,7 @@ with st.sidebar:
 params = {"natural_query": text, "limit": limit}
 response = sl_client.query("hotel", params)
 response_flattened = flatten_response(response)
-knn_params = response["metadata"]["debug_data"]["knn_params"]
+knn_params = response["metadata"]["search_params"]
 
 with st.sidebar:
     knn_params_clean = clean_knn_params(knn_params)
