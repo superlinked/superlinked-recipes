@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     openai_api_key: SecretStr
     redis_vdb_host: str = "localhost"
     redis_vdb_port: str = "6379"
+    qdrant_url: str
+    qdrant_api_key: str
     model_config = SettingsConfigDict(
         env_file=DEFAULT_ENV_FILENAME, env_file_encoding="utf-8"
     )

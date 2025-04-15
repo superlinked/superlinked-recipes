@@ -6,9 +6,15 @@ from superlinked_app.config import settings
 
 rest_source_speech = sl.RestSource(hotel_schema)
 
-vector_database = sl.RedisVectorDatabase(
-    host=settings.redis_vdb_host, port=settings.redis_vdb_port
+#vector_database = sl.RedisVectorDatabase(
+#    host=settings.redis_vdb_host, port=settings.redis_vdb_port
+#)
+
+vector_database = sl.QdrantVectorDatabase(
+    url=settings.qdrant_url,
+    api_key=settings.qdrant_api_key,
 )
+
 
 config = sl.DataLoaderConfig(
     settings.path_dataset,

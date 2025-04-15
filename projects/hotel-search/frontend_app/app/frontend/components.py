@@ -65,6 +65,15 @@ def format_filters(params) -> str:
             options = params.get(key)
             if options is None:
                 continue
+                
+            # Add debug info for accomodation_types to identify the issue
+            if column == "accomodation_types":
+                # Print type and value for debugging only, not in production
+                print(f"DEBUG: accomodation_types - type: {type(options)}, value: {options}")
+                
+                # Ensure options is a list for accomodation_types
+                if not isinstance(options, list):
+                    options = [options]
 
             for option in options:
                 if "include" in suffix:
