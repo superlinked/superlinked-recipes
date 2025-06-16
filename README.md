@@ -57,9 +57,8 @@ Recommendation Systems combine Semantic Search and personalization for relevant 
   </tr>
   <tr>
     <td valign="top">
-      <strong>📂 E-Commerce RecSys</strong><br>
-      <a href="https://e-commerce-recsys-recipe.superlinked.io">🚀 Try it now</a><br>
-      Code is coming soon!<br>
+      <a href="./projects/e-commerce"><strong>📂 E-Commerce RecSys</strong><br>
+      <a href="https://e-commerce-recsys-recipe.superlinked.io">🚀 Try it now</a>
     </td>
     <td valign="top">
       Item-to-item recommendations<br>
