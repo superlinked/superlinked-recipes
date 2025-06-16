@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superlinked Store</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container">
+            <a href="{{ url_for('main.home') }}" class="nav-title">
+                <img src="{{ url_for('static', filename='images/favicon.png') }}" alt="Superlinked Logo" class="nav-logo">
+                Superlinked Store
+            </a>
+            {% if session.get('user_id') %}
+            <div class="nav-buttons">
+                <a href="{{ url_for('main.reset_session') }}" class="nav-button reset-session">Reset Session</a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+    
+    {% if session.get('user_id') %}
+        {% from 'components/category_nav.html' import render_category_nav %}
+        {{ render_category_nav(hierarchy, current_level1, current_level2, current_level3) }}
+    {% endif %}
+    
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

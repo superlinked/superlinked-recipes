@@ -1,0 +1,10 @@
+pandas
+numpy
+fastapi
+uvicorn
+redis
+pyarrow
+python-dotenv
+pillow
+requests
+gcsfs

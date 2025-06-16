@@ -1,0 +1,35 @@
+<!-- templates/search_results.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="search-results-header">
+        <h1>Search Results for "{{ query }}"</h1>
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% else %}
+            <p class="results-count">Showing {{ products|length }} most relevant products for your query</p>
+        {% endif %}
+    </div>
+
+    {% if products %}
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <a href="{{ url_for('main.product', sku=product.sku) }}">
+                {% if product.product_image %}
+                <div class="product-image">
+                    <img src="{{ product.product_image }}" alt="{{ product.name }}" loading="lazy">
+                </div>
+                {% endif %}
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.brand }}</p>
+                {% if product.price %}
+                <p class="price">${{ product.price }}</p>
+                {% endif %}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
