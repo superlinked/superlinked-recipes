@@ -112,13 +112,33 @@ def call_sl_url(path_name, data=None):
     url = SL_API_MAP.get(path_name)
     if not url:
         raise ValueError(f"Invalid path name: {path_name}")
+    
     headers = {"accept": "application/json", "Content-Type": "application/json"}
-    response = requests.post(url, headers=headers, json=data or {})
-    response.raise_for_status()
+    
     try:
-        return response.status_code, response.json()
+        response = requests.post(url, headers=headers, json=data or {})
+        response.raise_for_status()
+        
+        # Check if response has content
+        if not response.text.strip():
+            app_state.logger.info(f"Empty response from {path_name} - code {response.status_code}")
+            return response.status_code, {}
+        
+        # Try to parse as JSON
+        try:
+            return response.status_code, response.json()
+        except json.JSONDecodeError as json_error:
+            app_state.logger.error(f"JSON decode error for {path_name}: {json_error}")
+            app_state.logger.error(f"Response content: {response.text[:200]}...")  # Log first 200 chars
+            return response.status_code, {"error": "Invalid JSON response", "raw_response": response.text}
+            
+    except requests.exceptions.RequestException as req_error:
+        app_state.logger.error(f"Request error for {path_name}: {req_error}")
+        return 500, {"error": str(req_error)}
+        
     except Exception as e:
-        return response.status_code, response.text
+        app_state.logger.error(f"Unexpected error in SL call for {path_name}: {e}")
+        return 500, {"error": str(e)}
 
 
 def get_user_dummy_vector(user_id):
@@ -144,6 +164,10 @@ def get_item2vec(item_id, entity_type='item'):
         _, data = call_sl_url("user_item2vec", {"user_id": item_id})
     item2vec_vector = data['entries'][0]['metadata']['vector_parts'][0]
     return item2vec_vector
+
+def check_user_exist(id):
+    _, data = call_sl_url("user_item2vec", {"user_id": id})
+    return len(data['entries']) > 0
 
 def populate_collobarative_by_neighbors(_id, _type, limit=10):
     param = 'cb_neighbors_user' if _type == 'user' else 'cb_neighbors_item'
@@ -208,15 +232,10 @@ async def ingest_event(event: dict):
             return {"status": "failed", "err": f"Missing data for product {product_id}"}
         
         user_topic_id = f"{user_id}_{topic}"
-        try:
-            event["user"] = user_topic_id
-            event_ingest_code, _ = call_sl_url("ingest_event", event)
-            event_ingest_code, _ = call_sl_url("ingest_event", event)
-            if 200 <= event_ingest_code < 300:
-                app_state.redis_kv.set_user_event_topic(user_id, topic ,event['created_at'])
-                return {"status": "success", "err": ""}
-        except Exception as event_ingest_error:
+        if not check_user_exist(user_topic_id):
+            app_state.logger.info(f"No existing vectors for user {user_topic_id} - creating dummy user..")
             user_dummy_data = get_user_dummy_vector(user_topic_id)
+            app_state.logger.info(f"User ingestion: {user_dummy_data}")
             user_ingest_code, _ = call_sl_url("ingest_user", user_dummy_data)
             if 200 <= user_ingest_code < 300:
                 event["user"] = user_topic_id
@@ -225,9 +244,12 @@ async def ingest_event(event: dict):
                 if 200 <= event_ingest_code < 300:
                     app_state.redis_kv.set_user_event_topic(user_id, topic ,event['created_at'])
                     return {"status": "success", "err": ""}
-            return {"status": "failed", "err": f"User ingestion failed or retry event ingestion failed: {event_ingest_error}"}
-        
-        return {"status": "failed", "err": "Event ingestion failed"}
+        else:
+            event["user"] = user_topic_id
+            event_ingest_code, _ = call_sl_url("ingest_event", event)
+            if 200 <= event_ingest_code < 300:
+                app_state.redis_kv.set_user_event_topic(user_id, topic ,event['created_at'])
+                return {"status": "success", "err": ""}
     
     except Exception as e:
         app_state.logger.error(f"Event ingestion failed g: {e}")
