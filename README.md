@@ -71,6 +71,23 @@ Recommendation Systems combine Semantic Search and personalization for relevant 
       Categories<br>
       Numbers<br>
     </td>
+    <tr>
+    <td valign="top">
+      <a href="./projects/recsys-nlq"><strong>📂 RecSys NLQ</strong><br>
+      <a href="https://recsys-nlq-demo.superlinked.io/">🚀 Try it now</a>
+    </td>
+    <td valign="top">
+      Item-to-item recommendations<br>
+      Item-to-user recommendations<br>
+      Collaborative filtering<br>
+      NLQ
+    </td>
+    <td valign="top">
+      Images<br>
+      Text<br>
+      Categories<br>
+      Numbers<br>
+    </td>
   </tr>
 </table>
 

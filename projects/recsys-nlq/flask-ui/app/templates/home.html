@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Featured Products</h2>
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <a href="{{ url_for('main.product', sku=product.sku) }}">
+                {% if product.image %}
+                <div class="product-image">
+                    <img src="{{ product.product_image | safe }}" alt="{{ product.name }}" 
+                         onerror="this.onerror=null; this.src='/static/images/placeholder.png';">
+                </div>
+                {% endif %}
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.brand }}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
