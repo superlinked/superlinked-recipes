@@ -90,29 +90,3 @@ Recommendation Systems combine Semantic Search and personalization for relevant 
     </td>
   </tr>
 </table>
-
-## RAG
-
-RAG (Retrieval-Augmented Generation) combines semantic search with generation capabilities, retrieving relevant information and generating contextually appropriate responses.
-
-<table>
-  <tr>
-    <th valign="top">Recipe</th>
-    <th valign="top">Key Features</th>
-    <th valign="top">Modalities</th>
-  </tr>
-  <tr>
-    <td valign="top">
-      <strong>📂 PDF RAG</strong><br>
-      Code and demo are coming soon!<br>
-    </td>
-    <td valign="top">
-      Search PDF documents with Natural Language Queries<br>
-      Generate responses based on retrieved information<br>
-      Conversational follow-up questions<br>
-    </td>
-    <td valign="top">
-    Text<br>
-    </td>
-  </tr>
-</table>
