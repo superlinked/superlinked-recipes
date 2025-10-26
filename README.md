@@ -71,31 +71,22 @@ Recommendation Systems combine Semantic Search and personalization for relevant 
       Categories<br>
       Numbers<br>
     </td>
-  </tr>
-</table>
-
-## RAG
-
-RAG (Retrieval-Augmented Generation) combines semantic search with generation capabilities, retrieving relevant information and generating contextually appropriate responses.
-
-<table>
-  <tr>
-    <th valign="top">Recipe</th>
-    <th valign="top">Key Features</th>
-    <th valign="top">Modalities</th>
-  </tr>
-  <tr>
+    <tr>
     <td valign="top">
-      <strong>📂 PDF RAG</strong><br>
-      Code and demo are coming soon!<br>
+      <a href="./projects/recsys-nlq"><strong>📂 RecSys NLQ</strong><br>
+      <a href="https://recsys-nlq-demo.superlinked.io/">🚀 Try it now</a>
     </td>
     <td valign="top">
-      Search PDF documents with Natural Language Queries<br>
-      Generate responses based on retrieved information<br>
-      Conversational follow-up questions<br>
+      Item-to-item recommendations<br>
+      Item-to-user recommendations<br>
+      Collaborative filtering<br>
+      NLQ
     </td>
     <td valign="top">
-    Text<br>
+      Images<br>
+      Text<br>
+      Categories<br>
+      Numbers<br>
     </td>
   </tr>
 </table>

@@ -1,0 +1,17 @@
+{
+    "window": 20,
+    "size": 100,
+    "shuffle": true,
+    "workers": 4,
+    "minTF": 1,
+    "epochs": 2,
+    "index_path": "./superlinked_app/index.py",
+    "events_path": "https://storage.googleapis.com/superlinked-recipes/ecommerce-recsys/data/events.json",
+    "products_path": "https://storage.googleapis.com/superlinked-recipes/ecommerce-recsys/data/products.json",
+    "model": "./item2vec/models/item2vec.model",
+    "vocab": "./item2vec/models/vocab.json",
+    "events_nrows": 10000,
+    "products_nrows": 10000,
+    "data_dir": "./data",
+    "products_output": "products_df.json"
+  }

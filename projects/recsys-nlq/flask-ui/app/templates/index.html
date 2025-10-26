@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superlinked Store</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" crossorigin="anonymous">
+</head>
+<body>
+    <main>
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <img src="{{ url_for('static', filename='images/favicon.png') }}" alt="Superlinked Logo" class="welcome-logo">
+                <p>Start your personalized shopping experience today.</p>
+                <a href="{{ url_for('main.start_session') }}" class="start-button">Start Shopping</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

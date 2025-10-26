@@ -1,0 +1,13 @@
+# requirements.txt
+flask==2.0.1
+werkzeug==2.0.3
+google-cloud-storage==2.5.0
+python-dotenv==0.19.0
+flask-session==0.4.0
+pandas
+numpy
+gcsfs
+pyarrow
+pillow
+requests
+gunicorn==23.0.0

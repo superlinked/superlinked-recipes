@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="product-detail">
+        <div class="product-image">
+            {% if product.product_image %}
+            <img src="{{ product.product_image | safe }}" alt="{{ product.name }}"
+                 onerror="this.onerror=null; this.src='/static/images/placeholder.png';">
+            {% endif %}
+        </div>
+        <div class="product-info">
+            <h2>{{ product.name }}</h2>
+            <p class="brand">{{ product.brand }}</p>
+            <p class="price"> $ {{ product.price }}</p>
+            <div class="product-section">
+                <h3>Product Description</h3>
+                <div class="description">
+                    {{ product.description | safe }}
+                </div>
+            </div>
+            <button class="add-to-cart-btn" data-sku="{{ product.sku }}">Add to Cart</button>
+        </div>
+    </div>
+    <div class="recommendations-section">
+        <h2>Similar Products</h2>
+        <div class="swiper" id="similar-products">
+            <div class="swiper-wrapper">
+                {% for product in recommendations.similar %}
+                <div class="swiper-slide">
+                    <a href="{{ url_for('main.product', sku=product.sku) }}">
+                        <div class="product-card">
+                            {% if product.product_image %}
+                            <div class="product-image">
+                                <img src="{{ product.product_image }}" alt="{{ product.name }}" loading="lazy">
+                            </div>
+                            {% endif %}
+                            <h3>{{ product.name }}</h3>
+                            <p>{{ product.brand }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <h2>Users Also Liked</h2>
+        <div class="swiper" id="complementary-type">
+            <div class="swiper-wrapper">
+                {% for product in recommendations.complementary_by_users %}
+                <div class="swiper-slide">
+                    <a href="{{ url_for('main.product', sku=product.sku) }}">
+                        <div class="product-card">
+                            {% if product.product_image %}
+                            <div class="product-image">
+                                <img src="{{ product.product_image }}" alt="{{ product.name }}" loading="lazy">
+                            </div>
+                            {% endif %}
+                            <h3>{{ product.name }}</h3>
+                            <p>{{ product.brand }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <h2>Explore different categories</h2>
+        <div class="swiper" id="complementary-category">
+            <div class="swiper-wrapper">
+                {% for product in recommendations.complementary_category %}
+                <div class="swiper-slide">
+                    <a href="{{ url_for('main.product', sku=product.sku) }}">
+                        <div class="product-card">
+                            {% if product.product_image %}
+                            <div class="product-image">
+                                <img src="{{ product.product_image }}" alt="{{ product.name }}" loading="lazy">
+                            </div>
+                            {% endif %}
+                            <h3>{{ product.name }}</h3>
+                            <p>{{ product.brand }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <h2>Popular similar items</h2>
+        <div class="swiper" id="popular-similar">
+            <div class="swiper-wrapper">
+                {% for product in recommendations.popular_for_item %}
+                <div class="swiper-slide">
+                    <a href="{{ url_for('main.product', sku=product.sku) }}">
+                        <div class="product-card">
+                            {% if product.product_image %}
+                            <div class="product-image">
+                                <img src="{{ product.product_image }}" alt="{{ product.name }}" loading="lazy">
+                            </div>
+                            {% endif %}
+                            <h3>{{ product.name }}</h3>
+                            <p>{{ product.brand }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+</div>
+<!-- Add Swiper JS for carousel -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize carousels
+    const swiperOptions = {
+        slidesPerView: 4,
+        spaceBetween: 20,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            // when window width is >= 320px
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            // when window width is >= 480px
+            480: {
+                slidesPerView: 2,
+                spaceBetween: 15
+            },
+            // when window width is >= 768px
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 20
+            },
+            // when window width is >= 1024px
+            1024: {
+                slidesPerView: 4,
+                spaceBetween: 20
+            }
+        }
+    };
+
+    new Swiper('#similar-products', swiperOptions);
+    new Swiper('#complementary-type', swiperOptions);
+    new Swiper('#complementary-category', swiperOptions);
+    new Swiper('#popular-similar', swiperOptions);
+
+    // Add to cart functionality
+    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+    addToCartBtn.addEventListener('click', function() {
+        const sku = this.dataset.sku;
+        fetch(`/add-to-cart/${sku}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Product added to cart!');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% macro render_category_nav(hierarchy, current_level1=None, current_level2=None, current_level3=None) %}
+<nav class="category-nav">
+    <div class="category-menu">
+        {% for level1, level2_dict in hierarchy.items() %}
+        <div class="category-item level-1 {% if level1 == current_level1 %}active{% endif %}">
+            <a href="{{ url_for('main.category', category_path=level1) }}"
+               class="category-link {% if level1 == current_level1 %}active{% endif %}">
+                {{ level1 }}
+            </a>
+            <div class="submenu level-2">
+                {% for level2, level3_list in level2_dict.items() %}
+                <div class="category-item level-2 {% if level2 == current_level2 %}active{% endif %}">
+                    <a href="{{ url_for('main.category', category_path=level1 + '/' + level2) }}"
+                       class="category-link {% if level2 == current_level2 %}active{% endif %}">
+                        {{ level2 }}
+                    </a>
+                    {% if level3_list %}
+                    <div class="submenu level-3">
+                        {% for level3 in level3_list %}
+                        <a href="{{ url_for('main.category', category_path=level1 + '/' + level2 + '/' + level3) }}"
+                           class="category-link {% if level3 == current_level3 %}active{% endif %}">
+                            {{ level3 }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</nav>
+{% endmacro %}

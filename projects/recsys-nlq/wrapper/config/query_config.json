@@ -1,0 +1,93 @@
+{
+    "user": {
+      "query": "user2item_query",
+      "params": {
+        "topic_weight": 1,
+        "brand_weight": 1,
+        "product_type_weight": 1,
+        "item2vec_weight": 1.2,
+        "image_weight": 0.8
+      }
+    },
+    "item_similarity": {
+      "query": "item2item_query",
+      "params": {
+        "topic_weight": 1,
+        "brand_weight": 0.3,
+        "product_type_weight": 1,
+        "popularity_weight": 0.1,
+        "item2vec_weight": 1,
+        "image_weight": 1
+      }
+    },
+    "item_users_similarity": {
+      "query": "item2item_query",
+      "params": {
+        "topic_weight": 0,
+        "brand_weight": 0,
+        "product_type_weight": 0,
+        "popularity_weight": 0.1,
+        "item2vec_weight": 1,
+        "image_weight": 0
+      }
+    },
+    "item_complementary_topic": {
+      "query": "item2item_query",
+      "params": {
+        "topic_weight": -1,
+        "brand_weight": 0.2,
+        "product_type_weight": 0,
+        "popularity_weight": 0.1,
+        "item2vec_weight": 1,
+        "image_weight": 0
+      }
+    },
+    "item_complementary_type": {
+      "query": "item2item_query",
+      "params": {
+        "topic_weight": 0,
+        "brand_weight": 0.2,
+        "product_type_weight": -1,
+        "popularity_weight": 0,
+        "item2vec_weight": 1,
+        "image_weight": 0
+      }
+    },
+    "item_popularity": {
+      "query": "item2item_query",
+      "params": {
+        "topic_weight": 0,
+        "brand_weight": 0,
+        "product_type_weight": 0,
+        "popularity_weight": 1,
+        "item2vec_weight": 0,
+        "image_weight": 0
+      }
+    },
+    "cb_neighbors_item": {
+      "query": "item2item_query",
+      "params": {
+        "topic_weight": 1,
+        "brand_weight": 1,
+        "product_type_weight": 1,
+        "popularity_weight": 0,
+        "item2vec_weight": 0,
+        "image_weight": 0,
+        "is_active": 0,
+        "has_item2vec_vector":1
+      }
+    },
+    "cb_neighbors_user": {
+      "query": "user2item_query",
+      "params": {
+        "topic_weight": 1,
+        "brand_weight": 1,
+        "product_type_weight": 1,
+        "item2vec_weight": 0,
+        "image_weight": 1,
+        "is_active": 0,
+        "has_item2vec_vector":1
+      }
+    }
+  }
+  
